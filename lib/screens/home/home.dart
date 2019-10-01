@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text("Contact", textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("Messageadsadsadasdasdasdadsafsdfasdfsfdsagdferdfsdfgdsfgdsfgdsdfadsdasfdsfa",
+                      Text("Aiyoo, just another message to be put here because why not and I need it for testing aaaaahhhh compiling takes so much time dammit please help aaaaa",
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
