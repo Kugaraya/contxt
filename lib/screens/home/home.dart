@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         child: Icon(Icons.create),
         foregroundColor: Colors.white,
         backgroundColor: Colors.lightBlue,
-        elevation: 2.0,
+        elevation: 3.0,
         onPressed: () {
           AlertDialog(
             content: Text("You pressed the FAB"),
@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            backgroundColor: Colors.blue[300],
             expandedHeight: 150.0,
             pinned: true,
             automaticallyImplyLeading: false,
@@ -57,14 +58,16 @@ class HomeScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Container(
-              color: Colors.blue,
+              color: Colors.blue[300],
               padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   MaterialButton(
                     onPressed: () {},
-                    child: Text("No unread messages", style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                    child: Text("No unread messages", 
+                      style: TextStyle(fontSize: 14.0, color: Colors.white)
+                    ),
                   )
                 ],
               )
@@ -74,35 +77,58 @@ class HomeScreen extends StatelessWidget {
             child: Container(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.green[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.lightBlue[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.orange[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.teal[300],
-                  ),
+                  for(int i=0; i<15; i++)
+                    _addMessage(),
                 ],
               )
             ),
           )
         ],
       )
+    );
+  }
+
+  Widget _addMessage() {
+    return Card(
+      elevation: 1.0,
+      margin: EdgeInsets.symmetric(vertical: 0.5, horizontal: 1.0),
+      child: FlatButton(
+        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 0.0),
+        child: Container(
+          height: 55.0,
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 45.0,
+                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                padding: EdgeInsets.all(4.0),
+                child: CircleAvatar(
+                  radius: 16.0,
+                  child: Icon(Icons.person, size: 16.0,)
+                ),
+              ),
+              Container(
+                child: LimitedBox(
+                  maxHeight: 55.0,
+                  maxWidth: 250.0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Contact"),
+                      Text("Messageadsadsadasdasdasdadsafsdfasdfsfdsagdferdfsdfgdsfgdsfgdsdfadsdasfdsfa",
+                        maxLines: 2,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
+                  )
+                )
+              )
+            ],
+          ),
+        ),
+        onPressed: () {},
+      ),
     );
   }
 

@@ -24,7 +24,6 @@ class _TodoScreenState extends State<TodoScreen> {
           setState(() {
             _isActiveAdd = _isActiveAdd ? false : true;
             _textAddController.clear();
-            _textEditController.clear();
           });
         },
       ),

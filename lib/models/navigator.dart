@@ -35,7 +35,7 @@ class NavigatorModelState extends State<NavigatorModel> with TickerProviderState
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.blue[900],
             title: Text(" ",style: TextStyle(fontSize: 2.0),),
           ),
           BottomNavigationBarItem(
