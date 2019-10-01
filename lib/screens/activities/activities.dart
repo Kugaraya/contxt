@@ -25,13 +25,14 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
 
   @override
   Widget build(BuildContext context) {
-    Map _items = {
-      CalculatorScreen() : "Calculator",
-      TodoScreen() : "To Do"
-    };
+    List<List> _items = [
+      [CalculatorScreen(), "Calculator"],
+      [TodoScreen(), "To Do"]
+    ];
 
     Widget _listCards(Widget _widget, String _title, int _itemNum) {
       return Card(
+        elevation: 3.0,
         child: FlatButton(
         padding: EdgeInsets.symmetric(horizontal: 0),
           child: Container(
@@ -48,7 +49,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
                 ),
                 Expanded(
                   child: Center(
-                    child: Text("Title")
+                    child: Text(_title)
                   ),
                 ),
                 SizedBox(
@@ -59,7 +60,12 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
               ],
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => _widget)
+            );
+          },
         ),
       );
     }
@@ -76,9 +82,8 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
           physics: ScrollPhysics(parent: BouncingScrollPhysics()),
           child: Column(
             children: <Widget>[
-              _items.forEach((k,v) => {
-
-              }),
+              for(int i=0; i<_items.length; i++)
+                _listCards(_items[i][0], _items[i][1], i+1)
             ],
           ),
         ),
