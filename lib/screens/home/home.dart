@@ -114,11 +114,13 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text("Contact"),
+                      Text("Contact", textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold)),
                       Text("Messageadsadsadasdasdasdadsafsdfasdfsfdsagdferdfsdfgdsfgdsfgdsdfadsdasfdsfa",
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
+                        textScaleFactor: 0.8,
+                        style: TextStyle(fontWeight: FontWeight.normal),
                       )
                     ],
                   )
