@@ -6,10 +6,9 @@ import 'package:flutter/cupertino.dart';
 //end dependencies
 //start pages
 
-import 'package:contxt/screens/home/home.dart';
-import 'package:contxt/screens/messaging/messaging.dart';
-import 'package:contxt/screens/contacts/contacts.dart';
-import 'package:contxt/screens/activities/activities.dart';
+import 'package:ConTXT/screens/home/home.dart';
+import 'package:ConTXT/screens/contacts/contacts.dart';
+import 'package:ConTXT/screens/activities/activities.dart';
 
 //end pages
 
@@ -23,7 +22,7 @@ class NavigatorModelState extends State<NavigatorModel> with TickerProviderState
   List<Widget> _content = [
     HomeScreen(),
     ContactScreen(),
-    MessageScreen(),
+    Center(child: Text("Insert Login Screen"),),
     ActivitiesScreen()
   ];
   

@@ -1,5 +1,5 @@
-import 'package:contxt/screens/calculator/calculator.dart';
-import 'package:contxt/screens/todo/todo.dart';
+import 'package:ConTXT/screens/calculator/calculator.dart';
+import 'package:ConTXT/screens/todo/todo.dart';
 import 'package:flutter/material.dart';
 
 class ActivitiesScreen extends StatefulWidget {

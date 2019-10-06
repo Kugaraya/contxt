@@ -1,8 +1,15 @@
-import 'package:contxt/models/menuclipper.dart';
+import 'package:ConTXT/models/menuclipper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class HomeScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int _itemCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +20,21 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.lightBlue,
         elevation: 2.0,
         onPressed: () {
-          AlertDialog(
-            content: Text("You pressed the FAB"),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            elevation: 3.0,
-            backgroundColor: Color.fromARGB(70, 255, 255, 255),
-            contentPadding: EdgeInsets.all(5.0),
-          );
+          setState(() {
+            _itemCount++;
+            Fluttertoast.showToast(
+                msg: "Tap Count: $_itemCount",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIos: 1,
+                backgroundColor: Color.fromARGB(80, 0, 0, 0),
+                textColor: Colors.white,
+                fontSize: 16.0
+            );
+          });
         },
       ),
-      key: _key,
+      key: _scaffoldKey,
       drawer: _buildDrawer(),
       backgroundColor: Colors.grey[300],
       body: CustomScrollView(
@@ -34,14 +46,13 @@ class HomeScreen extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
-                _key.currentState.openDrawer();
+                _scaffoldKey.currentState.openDrawer();
               },
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text('Messages'),
-              background: Image.asset('assets/img/cover.jpg', fit: BoxFit.cover)
-            ),
+              background: Image.asset('assets/img/cover.jpg', fit: BoxFit.cover)),
             actions: <Widget>[
               IconButton(
                 tooltip: "Search",
@@ -64,7 +75,8 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   MaterialButton(
                     onPressed: () {},
-                    child: Text("No unread messages", style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                    child: Text("No unread messages",
+                      style: TextStyle(fontSize: 14.0, color: Colors.white)),
                   )
                 ],
               )
@@ -72,35 +84,33 @@ class HomeScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Container(
-              child: Column(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.green[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.lightBlue[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.orange[300],
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 150.0,
-                    width: double.maxFinite,
-                    color: Colors.teal[300],
-                  ),
+                  ListTile(
+                    dense: true,
+                    isThreeLine: true,
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      child: Icon(Icons.person),
+                    ),
+                    title: Text("Contact Name"),
+                    subtitle: Text("Message content here",
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onTap: () => Fluttertoast.showToast(
+                      msg: "You tapped a list item",
+                      gravity: ToastGravity.BOTTOM,
+                      toastLength: Toast.LENGTH_SHORT
+                    ),
+                  )
                 ],
-              )
+              ),
             ),
-          )
+          ),
         ],
       )
     );
@@ -109,23 +119,25 @@ class HomeScreen extends StatelessWidget {
   _buildDrawer() {
     final String _img = "assets/img/user.jpg";
     return ClipPath(
-      clipper: MenuClipper(),
-      child: Container(
-        padding: EdgeInsets.only(left: 16.0, right: 40),
-        decoration: BoxDecoration(
-          color: Colors.blue[900],
-          boxShadow: [BoxShadow(color: Colors.black45)]
-        ),
-        width: 300.0,
-        height: double.maxFinite,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
+        clipper: MenuClipper(),
+        child: Container(
+            padding: EdgeInsets.only(left: 16.0, right: 40),
+            decoration: BoxDecoration(
+                color: Colors.blue[900],
+                boxShadow: [BoxShadow(color: Colors.black45)]),
+            width: 300.0,
+            height: double.maxFinite,
+            child: SafeArea(
+                child: SingleChildScrollView(
+                    child: Column(
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    icon: Icon(Icons.power_settings_new, color: Colors.blue[200],),
+                    icon: Icon(
+                      Icons.power_settings_new,
+                      color: Colors.blue[200],
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -134,8 +146,8 @@ class HomeScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient:
-                          LinearGradient(colors: [Colors.lightBlue[200], Colors.blue[700]])),
+                      gradient: LinearGradient(
+                          colors: [Colors.lightBlue[200], Colors.blue[700]])),
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage(_img),
@@ -148,10 +160,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   "github@TK-Works",
-                  style: TextStyle(
-                    color: Colors.blue[200],
-                    fontSize: 16.0
-                  ),
+                  style: TextStyle(color: Colors.blue[200], fontSize: 16.0),
                 ),
                 SizedBox(height: 30.0),
                 _buildRow(Icons.home, "Home"),
@@ -165,10 +174,10 @@ class HomeScreen extends StatelessWidget {
                 _buildRow(Icons.help, "Help"),
                 _buildDivider(),
               ],
-            )
-          )
-        )
-      )
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -186,9 +195,11 @@ class HomeScreen extends StatelessWidget {
       child: Row(children: [
         Icon(icon, color: Colors.blue[200]),
         SizedBox(width: 10.0),
-        Text(title, style: tStyle,),
+        Text(
+          title,
+          style: tStyle,
+        ),
       ]),
     );
   }
-
 }
