@@ -101,6 +101,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    trailing: Column(
+                      children: <Widget>[
+                        Text("12:01"),
+                        CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          radius: 8.0,
+                          child: Text("1", style: TextStyle(
+                            fontSize: 7.0,
+                            fontWeight: FontWeight.bold
+                          ),)
+                        )
+                      ],
+                    ),
                     onTap: () => Fluttertoast.showToast(
                       msg: "You tapped a list item",
                       gravity: ToastGravity.BOTTOM,
