@@ -80,7 +80,14 @@ class MessageScreenState extends State<MessageScreen> with TickerProviderStateMi
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("contact_name here"),
+        title: Hero(
+          tag: 'contact-name',
+          child: Text("Contact Name")
+        ),
+        leading: Hero(
+          tag: 'contact-icon',
+          child: Icon(Icons.person),
+        ),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         backgroundColor: Colors.teal[300]
       ),

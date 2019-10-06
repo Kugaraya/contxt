@@ -25,6 +25,13 @@ class ContactScreenState extends State<ContactScreen> {
           ),
         ],
       ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+
+          ],
+        )
+      )
     );
   }
 }

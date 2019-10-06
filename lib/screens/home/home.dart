@@ -9,8 +9,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int _itemCount = 0;
-
+  int _itemCount = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             _itemCount++;
             Fluttertoast.showToast(
-                msg: "Tap Count: $_itemCount",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Color.fromARGB(80, 0, 0, 0),
-                textColor: Colors.white,
-                fontSize: 16.0
+              msg: "Item Count: $_itemCount",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Color.fromARGB(80, 0, 0, 0),
+              textColor: Colors.white,
+              fontSize: 16.0
             );
           });
         },
@@ -67,66 +66,86 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SliverToBoxAdapter(
-            child: Container(
-              color: Colors.blue,
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {},
-                    child: Text("No unread messages",
-                      style: TextStyle(fontSize: 14.0, color: Colors.white)),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      MaterialButton(
+                        onPressed: () {},
+                        child: Text("No unread messages",
+                          style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                      )
+                    ],
                   )
-                ],
-              )
+                ),
+              ],
             ),
           ),
           SliverToBoxAdapter(
             child: Container(
-              child: ListView(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  ListTile(
-                    dense: true,
-                    isThreeLine: true,
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      child: Icon(Icons.person),
-                    ),
-                    title: Text("Contact Name"),
-                    subtitle: Text("Message content here",
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    trailing: Column(
-                      children: <Widget>[
-                        Text("12:01"),
-                        CircleAvatar(
-                          backgroundColor: Colors.blue,
-                          foregroundColor: Colors.white,
-                          radius: 8.0,
-                          child: Text("1", style: TextStyle(
-                            fontSize: 7.0,
-                            fontWeight: FontWeight.bold
-                          ),)
-                        )
-                      ],
-                    ),
-                    onTap: () => Fluttertoast.showToast(
-                      msg: "You tapped a list item",
-                      gravity: ToastGravity.BOTTOM,
-                      toastLength: Toast.LENGTH_SHORT
-                    ),
-                  )
-                ],
+                child: Column(
+                  children: <Widget>[
+                  for(int i=0; i<_itemCount; i++)
+                    OutlineButton(
+                      padding: EdgeInsets.all(0.0),
+                      onPressed: () => Navigator.of(context).pushNamed('/messages/compose'),
+                      child: ListTile(
+                        dense: true,
+                        isThreeLine: true,
+                        leading: Hero(
+                          tag: "contact-icon",
+                          child: CircleAvatar(
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        title: Hero(
+                          tag: "contact-name",
+                          child: Text("Contact Name",
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ),
+                        subtitle: Text("This is a very very long message for the sake of testing how many characters does a single ListTile support in this set dimension",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                        ),
+                        trailing: Column(
+                          children: <Widget>[
+                            Text("12:01"),
+                            SizedBox(height: 10.0),
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                              radius: 8.0,
+                              child: Center(
+                                child: Text("1",
+                                  style: TextStyle(
+                                    fontSize: 10.0
+                                  )
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ],
-      )
+      ),
     );
   }
 
