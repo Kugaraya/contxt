@@ -137,13 +137,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
             padding: EdgeInsets.only(left: 16.0, right: 40),
             decoration: BoxDecoration(
-                color: Colors.blue[900],
-                boxShadow: [BoxShadow(color: Colors.black45)]),
+              color: Colors.blue[900],
+              boxShadow: [BoxShadow(color: Colors.black45)]
+            ),
             width: 300.0,
             height: double.maxFinite,
             child: SafeArea(
-                child: SingleChildScrollView(
-                    child: Column(
+              child: SingleChildScrollView(
+                child: Column(
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerRight,
@@ -159,9 +160,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 90,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          colors: [Colors.lightBlue[200], Colors.blue[700]])),
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: [Colors.lightBlue[200], Colors.blue[700]]
+                    )
+                  ),
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage(_img),
