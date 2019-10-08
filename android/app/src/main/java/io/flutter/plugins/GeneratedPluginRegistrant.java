@@ -3,8 +3,9 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.camera.CameraPlugin;
 import flutter.plugins.contactsservice.contactsservice.ContactsServicePlugin;
-import com.appleeducate.fluttersms.FlutterSmsPlugin;
-import com.baseflow.permissionhandler.PermissionHandlerPlugin;
+import io.github.ponnamkarthik.toast.fluttertoast.FluttertoastPlugin;
+import com.ly.permission.PermissionPlugin;
+import com.babariviere.sms.SmsPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -16,8 +17,9 @@ public final class GeneratedPluginRegistrant {
     }
     CameraPlugin.registerWith(registry.registrarFor("io.flutter.plugins.camera.CameraPlugin"));
     ContactsServicePlugin.registerWith(registry.registrarFor("flutter.plugins.contactsservice.contactsservice.ContactsServicePlugin"));
-    FlutterSmsPlugin.registerWith(registry.registrarFor("com.appleeducate.fluttersms.FlutterSmsPlugin"));
-    PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
+    FluttertoastPlugin.registerWith(registry.registrarFor("io.github.ponnamkarthik.toast.fluttertoast.FluttertoastPlugin"));
+    PermissionPlugin.registerWith(registry.registrarFor("com.ly.permission.PermissionPlugin"));
+    SmsPlugin.registerWith(registry.registrarFor("com.babariviere.sms.SmsPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {

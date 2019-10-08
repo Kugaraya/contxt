@@ -1,21 +1,31 @@
 //start dependencies
 
 import 'package:flutter/material.dart';
-import 'package:contxt/models/navigator.dart';
+import 'package:flutter/services.dart';
 
 //end dependencies
 //start pages
 
-import 'package:contxt/screens/home/home.dart';
-import 'package:contxt/screens/contacts/contacts.dart';
-import 'package:contxt/screens/messaging/messaging.dart';
-import 'package:contxt/screens/calculator/calculator.dart';
+import 'package:ConTXT/models/navigator.dart';
+import 'package:ConTXT/screens/home/home.dart';
+import 'package:ConTXT/screens/contacts/contacts.dart';
+import 'package:ConTXT/screens/messaging/messaging.dart';
+import 'package:ConTXT/screens/calculator/calculator.dart';
 
 //end pages
 
-void main() => runApp(MyApp());
+void main(){
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) => runApp(ConTXT()));
+} 
 
-class MyApp extends StatelessWidget {
+class ConTXT extends StatefulWidget {
+  @override
+  _ConTXTState createState() => _ConTXTState();
+}
+
+class _ConTXTState extends State<ConTXT> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,5 +42,10 @@ class MyApp extends StatelessWidget {
         '/calculator' : (context) => CalculatorScreen(),
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

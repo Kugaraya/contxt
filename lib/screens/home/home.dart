@@ -1,8 +1,29 @@
-import 'package:contxt/models/menuclipper.dart';
+import 'package:ConTXT/models/menuclipper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class HomeScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  AnimationController _controller;
+  int _itemCount = 1;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+    )..addListener(() {
+        setState(() {});
+      });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +34,21 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.lightBlue,
         elevation: 3.0,
         onPressed: () {
-          AlertDialog(
-            content: Text("You pressed the FAB"),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            elevation: 3.0,
-            backgroundColor: Color.fromARGB(70, 255, 255, 255),
-            contentPadding: EdgeInsets.all(5.0),
-          );
+          setState(() {
+            _itemCount++;
+            Fluttertoast.showToast(
+              msg: "Item Count: $_itemCount",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Color.fromARGB(80, 0, 0, 0),
+              textColor: Colors.white,
+              fontSize: 16.0
+            );
+          });
         },
       ),
-      key: _key,
+      key: _scaffoldKey,
       drawer: _buildDrawer(),
       backgroundColor: Colors.grey[300],
       body: CustomScrollView(
@@ -35,14 +61,13 @@ class HomeScreen extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
-                _key.currentState.openDrawer();
+                _scaffoldKey.currentState.openDrawer();
               },
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text('Messages'),
-              background: Image.asset('assets/img/cover.jpg', fit: BoxFit.cover)
-            ),
+              background: Image.asset('assets/img/cover.jpg', fit: BoxFit.cover)),
             actions: <Widget>[
               IconButton(
                 tooltip: "Search",
@@ -57,34 +82,82 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           SliverToBoxAdapter(
-            child: Container(
-              color: Colors.blue[300],
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {},
-                    child: Text("No unread messages", 
-                      style: TextStyle(fontSize: 14.0, color: Colors.white)
-                    ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      MaterialButton(
+                        onPressed: () {},
+                        child: Text("No unread messages",
+                          style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                      )
+                    ],
                   )
-                ],
-              )
+                ),
+              ],
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  for(int i=0; i<15; i++)
-                    _addMessage(),
-                ],
-              )
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: <Widget>[
+                  for(int i=0; i<_itemCount; i++)
+                    OutlineButton(
+                      padding: EdgeInsets.all(0.0),
+                      onPressed: () => Navigator.of(context).pushNamed('/messages/compose'),
+                      child: ListTile(
+                        dense: true,
+                        isThreeLine: true,
+                        leading: CircleAvatar(
+                          child: Icon(Icons.person),
+                        ),
+                        title: Text("Contact Name",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        subtitle: Text("This is a very very long message for the sake of testing how many characters does a single ListTile support in this set dimension",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                        ),
+                        trailing: Column(
+                          children: <Widget>[
+                            Text("12:01"),
+                            SizedBox(height: 10.0),
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                              radius: 8.0,
+                              child: Center(
+                                child: Text("1",
+                                  style: TextStyle(
+                                    fontSize: 10.0
+                                  )
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 
@@ -137,23 +210,26 @@ class HomeScreen extends StatelessWidget {
   _buildDrawer() {
     final String _img = "assets/img/user.jpg";
     return ClipPath(
-      clipper: MenuClipper(),
-      child: Container(
-        padding: EdgeInsets.only(left: 16.0, right: 40),
-        decoration: BoxDecoration(
-          color: Colors.blue[900],
-          boxShadow: [BoxShadow(color: Colors.black45)]
-        ),
-        width: 300.0,
-        height: double.maxFinite,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
+        clipper: MenuClipper(),
+        child: Container(
+            padding: EdgeInsets.only(left: 16.0, right: 40),
+            decoration: BoxDecoration(
+              color: Colors.blue[900],
+              boxShadow: [BoxShadow(color: Colors.black45)]
+            ),
+            width: 300.0,
+            height: double.maxFinite,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    icon: Icon(Icons.power_settings_new, color: Colors.blue[200],),
+                    icon: Icon(
+                      Icons.power_settings_new,
+                      color: Colors.blue[200],
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -161,9 +237,11 @@ class HomeScreen extends StatelessWidget {
                   height: 90,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient:
-                          LinearGradient(colors: [Colors.lightBlue[200], Colors.blue[700]])),
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: [Colors.lightBlue[200], Colors.blue[700]]
+                    )
+                  ),
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage(_img),
@@ -176,10 +254,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   "github@TK-Works",
-                  style: TextStyle(
-                    color: Colors.blue[200],
-                    fontSize: 16.0
-                  ),
+                  style: TextStyle(color: Colors.blue[200], fontSize: 16.0),
                 ),
                 SizedBox(height: 30.0),
                 _buildRow(Icons.home, "Home"),
@@ -193,10 +268,10 @@ class HomeScreen extends StatelessWidget {
                 _buildRow(Icons.help, "Help"),
                 _buildDivider(),
               ],
-            )
-          )
-        )
-      )
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -214,9 +289,11 @@ class HomeScreen extends StatelessWidget {
       child: Row(children: [
         Icon(icon, color: Colors.blue[200]),
         SizedBox(width: 10.0),
-        Text(title, style: tStyle,),
+        Text(
+          title,
+          style: tStyle,
+        ),
       ]),
     );
   }
-
 }

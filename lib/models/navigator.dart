@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 //end dependencies
 //start pages
 
-import 'package:contxt/screens/home/home.dart';
-import 'package:contxt/screens/messaging/messaging.dart';
-import 'package:contxt/screens/contacts/contacts.dart';
-import 'package:contxt/screens/activities/activities.dart';
+import 'package:ConTXT/screens/home/home.dart';
+import 'package:ConTXT/screens/contacts/contacts.dart';
+import 'package:ConTXT/screens/activities/activities.dart';
+import 'package:ConTXT/screens/messaging/messaging.dart';
 
 //end pages
 

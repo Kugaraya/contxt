@@ -1,0 +1,119 @@
+{
+    "workbench.colorTheme": "Material Theme",
+    "peacock.favoriteColors": [
+        {
+            "name": "Angular Red",
+            "value": "#b52e31"
+        },
+        {
+            "name": "Auth0 Orange",
+            "value": "#eb5424"
+        },
+        {
+            "name": "Azure Blue",
+            "value": "#007fff"
+        },
+        {
+            "name": "C# Purple",
+            "value": "#68217A"
+        },
+        {
+            "name": "Gatsby Purple",
+            "value": "#639"
+        },
+        {
+            "name": "Go Cyan",
+            "value": "#5dc9e2"
+        },
+        {
+            "name": "Java Blue-Gray",
+            "value": "#557c9b"
+        },
+        {
+            "name": "JavaScript Yellow",
+            "value": "#f9e64f"
+        },
+        {
+            "name": "Mandalorian Blue",
+            "value": "#1857a4"
+        },
+        {
+            "name": "Node Green",
+            "value": "#215732"
+        },
+        {
+            "name": "React Blue",
+            "value": "#00b3e6"
+        },
+        {
+            "name": "Something Different",
+            "value": "#832561"
+        },
+        {
+            "name": "Vue Green",
+            "value": "#42b883"
+        }
+    ],
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontSize": 18,
+    "files.autoSave": "off",
+    "explorer.confirmDelete": false,
+    "search.exclude": {
+        "**/.idea": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/env": true,
+        "**/venv": true
+    },
+    "files.watcherExclude": {
+        "**/.idea/**": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/env/**": true,
+        "**/venv/**": true,
+        "env-*": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/node_modules": true,
+        "venv": true,
+        "*.sublime-*": true,
+        "env*": true
+    },
+    "git.autofetch": true,
+    "window.zoomLevel": 0,
+    "dart.warnWhenEditingFilesOutsideWorkspace": false,
+    "terminal.integrated.rendererType": "dom",
+    "dart.previewFlutterUiGuides": true,
+    "editor.fontLigatures": true,
+    "bracket-pair-colorizer-2.forceUniqueOpeningColor": true,
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "bracket-pair-colorizer-2.showBracketsInGutter": true,
+    "bracket-pair-colorizer-2.rulerPosition": "Full",
+    "bracket-pair-colorizer-2.highlightActiveScope": true,
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.smoothScrolling": true,
+    "editor.copyWithSyntaxHighlighting": true,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorStyle": "line-thin",
+    "editor.foldingStrategy": "auto",
+    "editor.suggestSelection": "recentlyUsed",
+    "editor.autoSurround": "languageDefined",
+    "editor.autoClosingBrackets": "languageDefined",
+    "editor.matchBrackets": false,
+    "peacock.affectAccentBorders": true,
+    "peacock.affectTabActiveBorder": true,
+    "peacock.surpriseMeOnStartup": true,
+    "dart.enableCompletionCommitCharacters": true,
+    "editor.defaultFormatter": "Dart-Code.flutter",
+    "editor.formatOnPaste": true,
+    "editor.hover.delay": 150,
+    "git.enableSmartCommit": true,
+}

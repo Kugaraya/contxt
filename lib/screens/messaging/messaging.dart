@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:contxt/models/messages.dart';
+import 'package:ConTXT/models/messages.dart';
 
 //end dependencies
 
@@ -80,7 +80,8 @@ class MessageScreenState extends State<MessageScreen> with TickerProviderStateMi
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("contact_name here"),
+        title: Text("Contact Name"),
+        leading: Icon(Icons.menu),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         backgroundColor: Colors.teal[300]
       ),
