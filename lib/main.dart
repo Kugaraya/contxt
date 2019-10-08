@@ -15,6 +15,7 @@ import 'package:ConTXT/screens/calculator/calculator.dart';
 //end pages
 
 void main(){
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) => runApp(ConTXT()));
 } 

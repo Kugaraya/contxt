@@ -7,9 +7,24 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  AnimationController _controller;
   int _itemCount = 1;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+    )..addListener(() {
+        setState(() {});
+      });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeOut,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
@@ -99,19 +116,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListTile(
                         dense: true,
                         isThreeLine: true,
-                        leading: Hero(
-                          tag: "contact-icon",
-                          child: CircleAvatar(
-                            child: Icon(Icons.person),
-                          ),
+                        leading: CircleAvatar(
+                          child: Icon(Icons.person),
                         ),
-                        title: Hero(
-                          tag: "contact-name",
-                          child: Text("Contact Name",
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500
-                            ),
+                        title: Text("Contact Name",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500
                           ),
                         ),
                         subtitle: Text("This is a very very long message for the sake of testing how many characters does a single ListTile support in this set dimension",
