@@ -161,52 +161,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _addMessage() {
-    return Card(
-      elevation: 1.0,
-      margin: EdgeInsets.symmetric(vertical: 0.5, horizontal: 1.0),
-      child: FlatButton(
-        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 0.0),
-        child: Container(
-          height: 55.0,
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: 45.0,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                padding: EdgeInsets.all(4.0),
-                child: CircleAvatar(
-                  radius: 16.0,
-                  child: Icon(Icons.person, size: 16.0,)
-                ),
-              ),
-              Container(
-                child: LimitedBox(
-                  maxHeight: 55.0,
-                  maxWidth: 300.0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Contact", textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("Aiyoo, just another message to be put here because why not and I need it for testing aaaaahhhh compiling takes so much time dammit please help aaaaa",
-                        maxLines: 2,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        textScaleFactor: 0.8,
-                        style: TextStyle(fontWeight: FontWeight.normal),
-                      )
-                    ],
-                  )
-                )
-              )
-            ],
-          ),
-        ),
-        onPressed: () {},
-      ),
-    );
-  }
-
   _buildDrawer() {
     final String _img = "assets/img/user.jpg";
     return ClipPath(
