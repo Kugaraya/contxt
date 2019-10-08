@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
               Container(
                 child: LimitedBox(
                   maxHeight: 55.0,
-                  maxWidth: 250.0,
+                  maxWidth: 300.0,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
