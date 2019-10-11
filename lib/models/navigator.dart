@@ -7,30 +7,27 @@ import 'package:flutter/cupertino.dart';
 //start pages
 
 import 'package:ConTXT/screens/home/home.dart';
+import 'package:ConTXT/screens/login/login.dart';
 import 'package:ConTXT/screens/contacts/contacts.dart';
 import 'package:ConTXT/screens/activities/activities.dart';
-import 'package:ConTXT/screens/messaging/messaging.dart';
 
 //end pages
 
 class NavigatorModel extends StatefulWidget {
+  final List<Widget> screens = [HomeScreen(), ContactScreen(), LoginScreen(), ActivitiesScreen()];
   @override
   State createState() => NavigatorModelState(); 
-} 
-
-class NavigatorModelState extends State<NavigatorModel> with TickerProviderStateMixin {
+}
+class NavigatorModelState extends State<NavigatorModel> {
   int _currentIndex = 0;
-  List<Widget> _content = [
-    HomeScreen(),
-    ContactScreen(),
-    MessageScreen(),
-    ActivitiesScreen()
-  ];
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _content[_currentIndex],
+      body: IndexedStack(
+        children: widget.screens,
+        index: _currentIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

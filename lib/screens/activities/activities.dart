@@ -3,8 +3,9 @@ import 'package:ConTXT/screens/todo/todo.dart';
 import 'package:flutter/material.dart';
 
 class ActivitiesScreen extends StatefulWidget {
+  ActivitiesScreen({Key key}) : super(key: key);
   @override
- State createState() => _ActivitiesScreenState();
+  State createState() => _ActivitiesScreenState();
 }
 
 class _ActivitiesScreenState extends State<ActivitiesScreen>
@@ -34,30 +35,33 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
       return Card(
         elevation: 3.0,
         child: FlatButton(
-        padding: EdgeInsets.symmetric(horizontal: 0),
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  child: Center(
-                    child: Text(_itemNum.toString() + ".", style: TextStyle(
-                      fontSize: 15.0,
-                    )),
+          padding: EdgeInsets.symmetric(horizontal: 0),
+          child: Hero(
+            tag: _title,
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    child: Center(
+                      child: Text(_itemNum.toString() + ".", style: TextStyle(
+                        fontSize: 15.0,
+                      )),
+                    ),
+                    height: 55.0,
+                    width: 55.0,
                   ),
-                  height: 55.0,
-                  width: 55.0,
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(_title)
+                  Expanded(
+                    child: Center(
+                      child: Text(_title)
+                    ),
                   ),
-                ),
-                SizedBox(
-                  child: Icon(Icons.chevron_right),
-                  height: 55.0,
-                  width: 55.0
-                )
-              ],
+                  SizedBox(
+                    child: Icon(Icons.chevron_right),
+                    height: 55.0,
+                    width: 55.0
+                  )
+                ],
+              ),
             ),
           ),
           onPressed: () {

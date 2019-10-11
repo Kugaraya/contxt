@@ -1,7 +1,6 @@
 //start dependencies
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 //end dependencies
 //start pages
@@ -14,11 +13,7 @@ import 'package:ConTXT/screens/calculator/calculator.dart';
 
 //end pages
 
-void main(){
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) => runApp(ConTXT()));
-} 
+void main() => runApp(ConTXT()); 
 
 class ConTXT extends StatefulWidget {
   @override
@@ -31,7 +26,8 @@ class _ConTXTState extends State<ConTXT> {
     return MaterialApp(
       title: 'ConTXT',
       theme: ThemeData(
-        primaryColor: Colors.blue
+        primaryColor: Colors.blue,
+        accentColor: Colors.blue[300]
       ),
       initialRoute: '/',
       routes: {

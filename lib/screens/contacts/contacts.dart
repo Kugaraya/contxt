@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContactScreen extends StatefulWidget {
+  ContactScreen({Key key}) : super(key: key);
   @override
   State createState() => ContactScreenState();
 }

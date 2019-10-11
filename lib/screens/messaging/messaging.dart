@@ -86,6 +86,12 @@ class MessageScreenState extends State<MessageScreen> with TickerProviderStateMi
         backgroundColor: Colors.teal[300]
       ),
       body: Container(
+        decoration: Theme.of(context).platform == TargetPlatform.iOS
+        ? BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.grey[200]),
+          ),
+        ) : null,
         child: Column(
           children: <Widget>[
             Flexible(
@@ -104,12 +110,6 @@ class MessageScreenState extends State<MessageScreen> with TickerProviderStateMi
             ),
           ],
         ),
-        decoration: Theme.of(context).platform == TargetPlatform.iOS
-        ? BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey[200]),
-          ),
-        ) : null,
       ),
     );
   }

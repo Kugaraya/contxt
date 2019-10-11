@@ -1,8 +1,10 @@
 import 'package:ConTXT/models/menuclipper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -19,9 +21,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       duration: Duration(
         milliseconds: 200,
       ),
-    )..addListener(() {
-        setState(() {});
-      });
+    );
     super.initState();
   }
 
@@ -238,8 +238,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget _buildRow(IconData icon, String title) {
     final TextStyle tStyle = TextStyle(color: Colors.blue[200], fontSize: 16.0);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+    return FlatButton(
+      onPressed: () {},
+      padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Row(children: [
         Icon(icon, color: Colors.blue[200]),
         SizedBox(width: 10.0),
