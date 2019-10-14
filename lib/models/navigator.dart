@@ -7,14 +7,14 @@ import 'package:flutter/cupertino.dart';
 //start pages
 
 import 'package:ConTXT/screens/home/home.dart';
-import 'package:ConTXT/screens/login/login.dart';
 import 'package:ConTXT/screens/contacts/contacts.dart';
+import 'package:ConTXT/screens/dashboard/dashboard.dart';
 import 'package:ConTXT/screens/activities/activities.dart';
 
 //end pages
 
 class NavigatorModel extends StatefulWidget {
-  final List<Widget> screens = [HomeScreen(), ContactScreen(), LoginScreen(), ActivitiesScreen()];
+  final List<Widget> screens = [HomeScreen(), ContactScreen(), DashboardScreen(), ActivitiesScreen()];
   @override
   State createState() => NavigatorModelState(); 
 }
@@ -52,6 +52,7 @@ class NavigatorModelState extends State<NavigatorModel> {
           )
         ],
         onTap: (int index) {
+          if(index == 2) Navigator.of(context).pushNamed('/login');
           setState(() {
             _currentIndex = index;
           });

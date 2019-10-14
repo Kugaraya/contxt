@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       autofocus: false,
       cursorColor: Colors.teal[300],
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.email),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.teal[300])),
         labelText: "E-mail Address",
@@ -41,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: _isObscure,
       cursorColor: Colors.teal[300],
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.vpn_key),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.teal[300])),
         labelText: "Password",

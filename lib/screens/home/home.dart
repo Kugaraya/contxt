@@ -2,20 +2,32 @@ import 'package:ConTXT/models/menuclipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sms_maintained/sms.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
+  final SmsQuery query = SmsQuery();
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  List<SmsMessage> messages;
+  List<SmsThread> threads;
   AnimationController _controller;
   int _itemCount = 1;
 
+  void queryMsgs() async {
+    messages = await widget.query.getAllSms;
+    threads = await widget.query.getAllThreads;
+  }
+
   @override
   void initState() {
+    queryMsgs();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(
@@ -34,6 +46,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         backgroundColor: Colors.lightBlue,
         elevation: 3.0,
         onPressed: () {
+          print(threads);
+          print(messages);
           setState(() {
             _itemCount++;
             Fluttertoast.showToast(

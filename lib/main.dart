@@ -1,5 +1,7 @@
 //start dependencies
 
+import 'package:ConTXT/screens/loading/loading.dart';
+import 'package:ConTXT/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
 //end dependencies
@@ -31,11 +33,13 @@ class _ConTXTState extends State<ConTXT> {
       ),
       initialRoute: '/',
       routes: {
-        '/' : (context) => NavigatorModel(),
+        '/' : (context) => LoadingScreen(),
+        '/login' : (context) => LoginScreen(),
         '/messages' : (context) => HomeScreen(),
-        '/messages/compose' : (context) => MessageScreen(),
+        '/navigator' : (context) => NavigatorModel(),
         '/people' : (context) => ContactScreen(),
         '/calculator' : (context) => CalculatorScreen(),
+        '/messages/compose' : (context) => MessageScreen(),
       },
     );
   }
