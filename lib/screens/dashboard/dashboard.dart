@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
+  final String title = "Dashboard";
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }

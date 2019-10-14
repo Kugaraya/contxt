@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () { 
-          Focus.of(context).dispose();
+          Navigator.of(context).pop();
           Fluttertoast.showToast(
             msg: "Login button pressed",
             toastLength: Toast.LENGTH_SHORT,

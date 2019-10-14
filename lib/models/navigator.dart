@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 //end dependencies
 //start pages
 
+import 'package:ConTXT/models/menu.dart';
 import 'package:ConTXT/screens/home/home.dart';
 import 'package:ConTXT/screens/contacts/contacts.dart';
 import 'package:ConTXT/screens/dashboard/dashboard.dart';
@@ -14,7 +15,20 @@ import 'package:ConTXT/screens/activities/activities.dart';
 //end pages
 
 class NavigatorModel extends StatefulWidget {
-  final List<Widget> screens = [HomeScreen(), ContactScreen(), DashboardScreen(), ActivitiesScreen()];
+  final Map<String, Widget> screens = {
+    HomeScreen().title : HomeScreen(), 
+    ContactScreen().title : ContactScreen(), 
+    DashboardScreen().title : DashboardScreen(), 
+    ActivitiesScreen().title : ActivitiesScreen(),
+  };
+  final Map<Color, Color> navColors = {
+    Colors.blue[300] : Colors.blue, 
+    Colors.lightGreen[300] : Colors.lightGreen, 
+    Colors.teal[300] : Colors.teal, 
+    Colors.indigo[300] : Colors.indigo
+  };
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   State createState() => NavigatorModelState(); 
 }
@@ -24,31 +38,55 @@ class NavigatorModelState extends State<NavigatorModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _currentIndex != 0 && _currentIndex != 3 ? AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            widget.scaffoldKey.currentState.openDrawer();
+          },
+        ),
+        title: Text(widget.screens.keys.elementAt(_currentIndex)),
+        backgroundColor: widget.navColors.keys.elementAt(_currentIndex),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search),
+            tooltip: "Search",
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.settings),
+            tooltip: "Settings",
+          ),
+        ],
+      ) : null,
       body: IndexedStack(
-        children: widget.screens,
+        children: widget.screens.values,
         index: _currentIndex,
       ),
+      key: widget.scaffoldKey,
+      drawer: buildDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            backgroundColor: Colors.blue[900],
-            title: Text(" ",style: TextStyle(fontSize: 2.0),),
+            backgroundColor: widget.navColors.values.elementAt(_currentIndex),
+            title: Text(" ",style: TextStyle(fontSize: 1.0),),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            backgroundColor: Colors.lightGreen,
-            title: Text(" ",style: TextStyle(fontSize: 2.0),),
+            backgroundColor: widget.navColors.values.elementAt(_currentIndex),
+            title: Text(" ",style: TextStyle(fontSize: 1.0),),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phone_android),
-            backgroundColor: Colors.teal,
-            title: Text(" ",style: TextStyle(fontSize: 2.0),),
+            backgroundColor: widget.navColors.values.elementAt(_currentIndex),
+            title: Text(" ",style: TextStyle(fontSize: 1.0),),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_list),
-            backgroundColor: Colors.indigo,
-            title: Text(" ",style: TextStyle(fontSize: 2.0),),
+            backgroundColor: widget.navColors.values.elementAt(_currentIndex),
+            title: Text(" ",style: TextStyle(fontSize: 1.0),),
           )
         ],
         onTap: (int index) {

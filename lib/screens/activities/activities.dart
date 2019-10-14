@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class ActivitiesScreen extends StatefulWidget {
   ActivitiesScreen({Key key}) : super(key: key);
+  final String title = "Activities";
   @override
   State createState() => _ActivitiesScreenState();
 }
