@@ -9,6 +9,7 @@ import 'package:ConTXT/screens/home/thread.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
+  
   final String title = "Messages";
   final SmsQuery query = SmsQuery();
   @override
@@ -113,14 +114,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
                     )
                   ],
                 )
-              ),
+              )
             ),
             SliverToBoxAdapter(
               child: Column(
                 children: <Widget>[
-                  Expanded(
-                    child: _getThreadsWidgets()
-                  )
+                  _getThreadsWidgets()
                 ],
               ),
             ),
@@ -135,19 +134,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
         child: CircularProgressIndicator(),
       );
     } else {
-      return FadeTransition(
-        opacity: opacityController,
-        child: ListView.builder(
-          controller: scrollController,
-          padding: EdgeInsets.all(0.0),
-          physics: ClampingScrollPhysics(),
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          cacheExtent: 8.0,
-          itemCount: _threads.length,
-          itemBuilder: (context, index) {
-            return Thread(_threads[index], _userProfile);
-          },
+      return Expanded(
+        child: FadeTransition(
+          opacity: opacityController,
+          child: ListView.builder(
+            controller: scrollController,
+            padding: EdgeInsets.all(0.0),
+            physics: ClampingScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: _threads.length,
+            itemBuilder: (context, index) {
+              return Thread(_threads[index], _userProfile);
+            },
+          ),
         ),
       );
     }

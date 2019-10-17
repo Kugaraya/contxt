@@ -22,6 +22,7 @@ class Avatar extends StatelessWidget {
 
     return CircleAvatar(
       backgroundColor: ContactColor.getColor(alternativeText),
+      foregroundColor: Colors.white,
       child: alternativeText != null ? 
         Text(alternativeText[0]) :
         Icon(Icons.person_pin)

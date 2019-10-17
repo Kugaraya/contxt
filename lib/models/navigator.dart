@@ -50,7 +50,8 @@ class NavigatorModelState extends State<NavigatorModel> {
         ) : null,
         title: Text(widget.screens.keys.elementAt(_currentIndex)),
         backgroundColor: widget.navColors.keys.elementAt(_currentIndex),
-        actions: _currentIndex < 2 ? <Widget>[
+        actions: _currentIndex < 2 ? 
+        <Widget>[
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.search),
@@ -68,10 +69,10 @@ class NavigatorModelState extends State<NavigatorModel> {
         controller: _pageController,
         children: widget.screens.values.toList(),        
         onPageChanged: (index) {
-          if(index == 2) Navigator.of(context).pushNamed('/login');
           setState(() {
             _currentIndex = index;
           });
+          if(_currentIndex == 2) Navigator.of(context).pushNamed('/login');
         },
       ),
       key: widget.scaffoldKey,
@@ -101,7 +102,6 @@ class NavigatorModelState extends State<NavigatorModel> {
         ],
         onTap: (int index) {
           setState(() {
-            _currentIndex = index;
             _pageController.jumpToPage(index);
           });
         },
