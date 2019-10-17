@@ -75,22 +75,15 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("List of Activities"),
-        centerTitle: true,
-        backgroundColor: Colors.indigo[300],
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          physics: ScrollPhysics(parent: BouncingScrollPhysics()),
-          child: Column(
-            children: <Widget>[
-              for(int i=0; i<_items.length; i++)
-                _listCards(_items[i][0], _items[i][1], i+1)
-            ],
-          ),
+    return Container(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+        child: Column(
+          children: <Widget>[
+            for(int i=0; i<_items.length; i++)
+              _listCards(_items[i][0], _items[i][1], i+1)
+          ],
         ),
       ),
     );

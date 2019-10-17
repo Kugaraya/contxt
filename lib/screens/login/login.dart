@@ -94,7 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          physics: AlwaysScrollableScrollPhysics(),
           children: <Widget>[
             logo,
             SizedBox(height: 48.0),

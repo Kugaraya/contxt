@@ -34,20 +34,23 @@ class NavigatorModel extends StatefulWidget {
 }
 class NavigatorModelState extends State<NavigatorModel> {
   int _currentIndex = 0;
+  PageController _pageController = PageController(
+    keepPage: true,
+  );
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentIndex != 0 && _currentIndex != 3 ? AppBar(
-        leading: IconButton(
+      appBar: _currentIndex != 0 ? AppBar(
+        leading: _currentIndex == 2 ? IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
             widget.scaffoldKey.currentState.openDrawer();
           },
-        ),
+        ) : null,
         title: Text(widget.screens.keys.elementAt(_currentIndex)),
         backgroundColor: widget.navColors.keys.elementAt(_currentIndex),
-        actions: <Widget>[
+        actions: _currentIndex < 2 ? <Widget>[
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.search),
@@ -58,14 +61,21 @@ class NavigatorModelState extends State<NavigatorModel> {
             icon: Icon(Icons.settings),
             tooltip: "Settings",
           ),
-        ],
+        ] : null,
       ) : null,
-      body: IndexedStack(
-        children: widget.screens.values,
-        index: _currentIndex,
+      body: PageView(
+        physics: ClampingScrollPhysics(),
+        controller: _pageController,
+        children: widget.screens.values.toList(),        
+        onPageChanged: (index) {
+          if(index == 2) Navigator.of(context).pushNamed('/login');
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       key: widget.scaffoldKey,
-      drawer: buildDrawer(),
+      drawer: _currentIndex == 2 ? buildDrawer() : null,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -90,9 +100,9 @@ class NavigatorModelState extends State<NavigatorModel> {
           )
         ],
         onTap: (int index) {
-          if(index == 2) Navigator.of(context).pushNamed('/login');
           setState(() {
             _currentIndex = index;
+            _pageController.jumpToPage(index);
           });
         },
         currentIndex: _currentIndex,

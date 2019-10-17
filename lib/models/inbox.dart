@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class InboxModel extends StatelessWidget {
-  InboxModel({this.title, this.subtitle, this.time, this.unread, this.animationController, this.slideOffset});
+  InboxModel({this.index, this.id, this.title, this.subtitle, this.time, this.unread});
   
+  final int index, id;
   final String title, subtitle, time, unread;
-  final AnimationController animationController;
-  final Animation<Offset> slideOffset;
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: slideOffset,
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+      opacity: 1.0,
       child: ListTile(
         dense: true,
         isThreeLine: true,
