@@ -1,7 +1,6 @@
 //start dependencies
 
 import 'package:ConTXT/screens/loading/loading.dart';
-import 'package:ConTXT/screens/login/login.dart';
 import 'package:ConTXT/sim/sim_bloc_provider.dart';
 import 'package:ConTXT/sim/sim_bloc.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,12 @@ import 'package:ConTXT/screens/calculator/calculator.dart';
 
 void main() => runApp(ConTXT()); 
 
-class ConTXT extends StatelessWidget {
+class ConTXT extends StatefulWidget {
+  @override
+  _ConTXTState createState() => _ConTXTState();
+}
+
+class _ConTXTState extends State<ConTXT> {
   final bloc = SimCardsBloc();
 
   @override
@@ -36,7 +40,6 @@ class ConTXT extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/' : (context) => LoadingScreen(),
-          '/login' : (context) => LoginScreen(),
           '/messages' : (context) => HomeScreen(),
           '/navigator' : (context) => NavigatorModel(),
           '/people' : (context) => ContactScreen(),

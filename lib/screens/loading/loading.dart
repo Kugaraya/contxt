@@ -15,15 +15,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return SplashScreen(
       seconds: 2,
       navigateAfterSeconds: NavigatorModel(),
-      title: Text("ConTXT",
-        style: TextStyle(
-          color: Colors.blueAccent[400],
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0
-        ),
-      ),
       image: Image.asset('assets/logo.png'),
       backgroundColor: Colors.white,
+      loadingText: Text("Loading..."),
       styleTextUnderTheLoader: TextStyle(
         fontSize: 8.0,
         color: Colors.grey[400]

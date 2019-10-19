@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sms_maintained/contact.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 class ContactScreen extends StatefulWidget {
   ContactScreen({Key key}) : super(key: key);
@@ -9,28 +10,45 @@ class ContactScreen extends StatefulWidget {
 }
 
 class ContactScreenState extends State<ContactScreen> with AutomaticKeepAliveClientMixin<ContactScreen> {
-  ContactQuery query;
-  List<Contact> contacts;
+  Iterable<Contact> _contacts;
 
-  void contactQuery() async {
-    query = ContactQuery();
+  @override
+  void initState() {
+    super.initState();
+    refreshContacts();
   }
 
   @override
   bool get wantKeepAlive => true;
 
+  refreshContacts() async {
+    var contacts = await ContactsService.getContacts();
+    setState(() {
+      _contacts = contacts;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      child: Column(
-        children: <Widget>[
-          RaisedButton(
-            onPressed: () => print(query.toString() + " : " + contacts.toString()),
-            child: Text("Test Contact Instances"),
-          )
-        ],
-      )
+    return Scaffold(
+      body: SafeArea(
+        child: _contacts != null ?
+          ListView.builder(
+            itemCount: _contacts?.length ?? 0,
+            itemBuilder: (context, index) {
+              Contact c = _contacts?.elementAt(index);
+              return ListTile(
+                onTap: () {},
+                leading: (c.avatar != null && c.avatar.length > 0) ?
+                  CircleAvatar(backgroundImage: MemoryImage(c.avatar)) :
+                  CircleAvatar(child: Text(c.initials())),
+                title: Text(c.displayName ?? ""),
+              );
+            },
+          ) : Center(child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

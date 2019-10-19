@@ -24,31 +24,15 @@ class _ThreadState extends State<Thread> {
   @override
   Widget build(BuildContext context) {
     Widget _item = Container(
+      margin: EdgeInsets.all(0.0),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black38,
           style: BorderStyle.solid,
-          width: 0.5
+          width: 0.30
         ),
       ),
-      child: ListTile(
-        isThreeLine: true,
-        dense: true,
-        leading: Avatar(widget.thread.contact.thumbnail, widget.thread.contact.fullName),
-        title: Text(widget.thread.contact.fullName ?? widget.thread.contact.address, 
-          style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500
-          ),
-          maxLines: 1,
-        ),
-        subtitle: Text(
-          widget.thread.messages.first.body.trim(),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          softWrap: true,
-        ),
-        trailing: Badge(widget.thread.messages),
+      child: InkWell(
         onTap: () => _showConversation(context),
         onLongPress: () => Fluttertoast.showToast(
           msg: "Long Press success",
@@ -58,6 +42,22 @@ class _ThreadState extends State<Thread> {
           gravity: ToastGravity.BOTTOM,
           toastLength: Toast.LENGTH_SHORT,
           timeInSecForIos: 1
+        ),
+        child: ListTile(
+          leading: Avatar(widget.thread.contact.thumbnail, widget.thread.contact.fullName),
+          title: Text(widget.thread.contact.fullName ?? widget.thread.contact.address, 
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500
+            ),
+            maxLines: 1,
+          ),
+          subtitle: Text(
+            widget.thread.messages.first.body.trim(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: Badge(widget.thread.messages),          
         ),
       ),
     );

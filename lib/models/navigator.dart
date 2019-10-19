@@ -72,7 +72,6 @@ class NavigatorModelState extends State<NavigatorModel> {
           setState(() {
             _currentIndex = index;
           });
-          if(_currentIndex == 2) Navigator.of(context).pushNamed('/login');
         },
       ),
       key: widget.scaffoldKey,

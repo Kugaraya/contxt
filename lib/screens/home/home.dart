@@ -3,6 +3,7 @@ import 'package:ConTXT/sim/sim_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:sms_maintained/sms.dart';
 import 'package:sms_maintained/contact.dart';
 import 'package:ConTXT/screens/home/thread.dart';
@@ -40,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
     _userProfileProvider.getUserProfile().then(_onUserProfileLoaded);
     _query.getAllThreads.then(_onThreadsLoaded);
     _smsSender.onSmsDelivered.listen(_onSmsDelivered);
-    
     // Animation
     opacityController = AnimationController(
       duration: Duration(milliseconds: 500), vsync: this, value: 0.0
@@ -79,13 +79,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
           slivers: <Widget>[
             SliverAppBar(
               backgroundColor: Colors.blue[300],
-              expandedHeight: 150.0,
+              expandedHeight: 100.0,
               pinned: true,
               automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text('Messages'),
-                background: Image.asset('assets/img/cover.jpg', fit: BoxFit.cover)),
+                background: Image.asset('assets/img/cover.png', fit: BoxFit.cover)),
               actions: <Widget>[
                 IconButton(
                   tooltip: "Search",
@@ -118,9 +118,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
             ),
             SliverToBoxAdapter(
               child: Column(
-                children: <Widget>[
-                  _getThreadsWidgets()
-                ],
+                children: _getThreadsWidgets()
               ),
             ),
           ],
@@ -128,28 +126,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
       ),
     );
   }
-  Widget _getThreadsWidgets() {
+  List<Widget> _getThreadsWidgets() {
     if (_loading) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      List<Widget> _loader = [
+        SizedBox(height: 200.0),
+        Center(
+          child: CircularProgressIndicator(),
+        )
+      ];
+      return _loader;
     } else {
-      return Expanded(
-        child: FadeTransition(
-          opacity: opacityController,
-          child: ListView.builder(
-            controller: scrollController,
-            padding: EdgeInsets.all(0.0),
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: _threads.length,
-            itemBuilder: (context, index) {
-              return Thread(_threads[index], _userProfile);
-            },
-          ),
-        ),
-      );
+      return [ListView.builder(
+        controller: scrollController,
+        padding: EdgeInsets.all(0.0),
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: _threads.length,
+        itemBuilder: (context, index) {
+          return Thread(_threads[index], _userProfile);
+        },
+      )];
     }
   }
 
