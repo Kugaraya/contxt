@@ -1,5 +1,3 @@
-import 'package:ConTXT/screens/calculator/calculator.dart';
-import 'package:ConTXT/screens/todo/todo.dart';
 import 'package:flutter/material.dart';
 
 class ActivitiesScreen extends StatefulWidget {
@@ -28,11 +26,11 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
   @override
   Widget build(BuildContext context) {
     List<List> _items = [
-      [CalculatorScreen(), "Calculator"],
-      [TodoScreen(), "To Do"]
+      ["/calculator", "Calculator"],
+      ["/todo", "To Do"]
     ];
 
-    Widget _listCards(Widget _widget, String _title, int _itemNum) {
+    Widget _listCards(String _route, String _title, int _itemNum) {
       return Card(
         elevation: 3.0,
         child: FlatButton(
@@ -66,10 +64,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
             ),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => _widget)
-            );
+            Navigator.of(context).pushNamed(_route);
           },
         ),
       );

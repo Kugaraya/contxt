@@ -3,7 +3,6 @@ import 'package:ConTXT/sim/sim_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:sms_maintained/sms.dart';
 import 'package:sms_maintained/contact.dart';
 import 'package:ConTXT/screens/home/thread.dart';
@@ -17,18 +16,16 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin<HomeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,WidgetsBindingObserver,AutomaticKeepAliveClientMixin<HomeScreen> {
   final UserProfileProvider _userProfileProvider = UserProfileProvider();
   final SmsQuery _query = SmsQuery();
   final SmsReceiver _receiver = SmsReceiver();
   final SmsSender _smsSender = SmsSender();
   final bloc = SimCardsBloc();
-  bool _loading = true;
+  bool _isLoading = true;
   List<SmsThread> _threads;
   UserProfile _userProfile;
-  ScrollController scrollController = ScrollController();
-  // Animation
+  ScrollController _scrollController = ScrollController();
   AnimationController opacityController;
 
   @override
@@ -36,15 +33,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
 
   @override
   void initState() {
-    super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _receiver.onSmsReceived.listen(_onSmsReceived);
     _userProfileProvider.getUserProfile().then(_onUserProfileLoaded);
     _query.getAllThreads.then(_onThreadsLoaded);
     _smsSender.onSmsDelivered.listen(_onSmsDelivered);
-    // Animation
     opacityController = AnimationController(
       duration: Duration(milliseconds: 500), vsync: this, value: 0.0
     );
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.suspending) {
+      _receiver.onSmsReceived.listen(_onSmsReceived);    
+    }
+  }
+
+  @override
+  void dispose() {
+    _receiver.onSmsReceived.listen(_onSmsReceived);
+    super.dispose();
   }
 
   @override
@@ -73,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
             });
           },
         ),
-        key: _scaffoldKey,
         backgroundColor: Colors.white12,
         body: CustomScrollView(
           slivers: <Widget>[
@@ -118,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
             ),
             SliverToBoxAdapter(
               child: Column(
-                children: _getThreadsWidgets()
+                children: [_getThreadsWidgets()]
               ),
             ),
           ],
@@ -126,30 +135,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
       ),
     );
   }
-  List<Widget> _getThreadsWidgets() {
-    if (_loading) {
-      List<Widget> _loader = [
+  Widget _getThreadsWidgets() {
+    if (_isLoading) {
+      Widget _loader = Column(children: [
         SizedBox(height: 200.0),
         Center(
           child: CircularProgressIndicator(),
         )
-      ];
+      ]);
       return _loader;
     } else {
-      return [ListView.builder(
-        controller: scrollController,
-        padding: EdgeInsets.all(0.0),
-        physics: BouncingScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: _threads.length,
-        itemBuilder: (context, index) {
-          return Thread(_threads[index], _userProfile);
-        },
-      )];
+      return FadeTransition(
+        opacity: opacityController,
+        child: Column(
+          children: [
+            ListView.builder(
+              controller: _scrollController,
+              padding: EdgeInsets.all(0.0),
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: _threads.length,
+              itemBuilder: (context, index) {
+                return Thread(_threads[index], _userProfile);
+              }
+            ),
+          ]
+        ),
+      );
     }
   }
-
+  
   void _onSmsReceived(SmsMessage sms) async {
     var thread = _threads.singleWhere((thread) {
       return thread.id == sms.threadId;
@@ -174,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,A
   void _checkIfLoadCompleted() {
     if (_threads != null && _userProfile != null) {
       setState(() {
-        _loading = false;
+        _isLoading = false;
         opacityController.animateTo(1.0, curve: Curves.easeIn);
       });
     }

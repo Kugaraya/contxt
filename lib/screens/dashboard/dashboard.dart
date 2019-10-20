@@ -9,13 +9,25 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> with AutomaticKeepAliveClientMixin<DashboardScreen> {
   @override
   bool get wantKeepAlive => true;
-
+  
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       body: Center(
-        child: Text("You haven't logged in yet")
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              RaisedButton(
+                elevation: 3.0,
+                onPressed: () {},
+                color: Colors.grey[700],
+                textColor: Colors.white70,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 //start dependencies
 
 import 'package:ConTXT/screens/loading/loading.dart';
+import 'package:ConTXT/screens/todo/todo.dart';
 import 'package:ConTXT/sim/sim_bloc_provider.dart';
 import 'package:ConTXT/sim/sim_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,9 @@ import 'package:ConTXT/screens/calculator/calculator.dart';
 
 //end pages
 
-void main() => runApp(ConTXT()); 
+Future<void> main() async {
+  runApp(ConTXT());
+}
 
 class ConTXT extends StatefulWidget {
   @override
@@ -44,6 +47,7 @@ class _ConTXTState extends State<ConTXT> {
           '/navigator' : (context) => NavigatorModel(),
           '/people' : (context) => ContactScreen(),
           '/calculator' : (context) => CalculatorScreen(),
+          '/todo' : (context) => TodoScreen(),
         },
       ),
     );
