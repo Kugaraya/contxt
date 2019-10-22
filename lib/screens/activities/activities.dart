@@ -27,7 +27,8 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
   Widget build(BuildContext context) {
     List<List> _items = [
       ["/calculator", "Calculator"],
-      ["/todo", "To Do"]
+      ["/todo", "To Do"],
+      ["/http", "HTTP Requests"]
     ];
 
     Widget _listCards(String _route, String _title, int _itemNum) {

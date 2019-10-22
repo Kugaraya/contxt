@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,WidgetsBindingObserver,AutomaticKeepAliveClientMixin<HomeScreen> {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final UserProfileProvider _userProfileProvider = UserProfileProvider();
   final SmsQuery _query = SmsQuery();
   final SmsReceiver _receiver = SmsReceiver();
@@ -25,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
   bool _isLoading = true;
   List<SmsThread> _threads;
   UserProfile _userProfile;
-  ScrollController _scrollController = ScrollController();
   AnimationController opacityController;
 
   @override
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
     _query.getAllThreads.then(_onThreadsLoaded);
     _smsSender.onSmsDelivered.listen(_onSmsDelivered);
     opacityController = AnimationController(
-      duration: Duration(milliseconds: 500), vsync: this, value: 0.0
+      duration: Duration(milliseconds: 300), vsync: this, value: 0.0
     );
     super.initState();
   }
@@ -149,14 +149,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
         opacity: opacityController,
         child: Column(
           children: [
-            ListView.builder(
-              controller: _scrollController,
+            AnimatedList(
+              key: listKey,
               padding: EdgeInsets.all(0.0),
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: _threads.length,
-              itemBuilder: (context, index) {
-                return Thread(_threads[index], _userProfile);
+              initialItemCount: _threads.length,
+              itemBuilder: (context, index, animation) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: Offset(-1, 0),
+                    end: Offset.zero
+                  ).animate(animation),
+                  child: Thread(_threads[index], _userProfile),
+                );
               }
             ),
           ]
@@ -170,6 +176,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
       return thread.id == sms.threadId;
     }, orElse: () {
       var thread = SmsThread(sms.threadId);
+      listKey.currentState.insertItem(0, duration: Duration(milliseconds: 300));
       _threads.insert(0, thread);
       return thread;
     });
@@ -180,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
     int index = _threads.indexOf(thread);
     if (index != 0) {
       _threads.removeAt(index);
+      listKey.currentState.insertItem(0, duration: Duration(milliseconds: 300));
       _threads.insert(0, thread);
     }
 

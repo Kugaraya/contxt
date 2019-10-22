@@ -1,7 +1,6 @@
 //start dependencies
 
-import 'package:ConTXT/screens/loading/loading.dart';
-import 'package:ConTXT/screens/todo/todo.dart';
+import 'package:ConTXT/screens/activities/http.dart';
 import 'package:ConTXT/sim/sim_bloc_provider.dart';
 import 'package:ConTXT/sim/sim_bloc.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,10 @@ import 'package:flutter/material.dart';
 
 import 'package:ConTXT/models/navigator.dart';
 import 'package:ConTXT/screens/home/home.dart';
+import 'package:ConTXT/screens/loading/loading.dart';
+import 'package:ConTXT/screens/activities/todo.dart';
 import 'package:ConTXT/screens/contacts/contacts.dart';
-import 'package:ConTXT/screens/calculator/calculator.dart';
+import 'package:ConTXT/screens/activities/calculator.dart';
 
 //end pages
 
@@ -48,6 +49,7 @@ class _ConTXTState extends State<ConTXT> {
           '/people' : (context) => ContactScreen(),
           '/calculator' : (context) => CalculatorScreen(),
           '/todo' : (context) => TodoScreen(),
+          '/http' : (context) => HTTPScreen(),
         },
       ),
     );
