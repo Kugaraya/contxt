@@ -149,20 +149,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
         opacity: opacityController,
         child: Column(
           children: [
-            AnimatedList(
+            ListView.builder(
               key: listKey,
-              padding: EdgeInsets.all(0.0),
               physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              initialItemCount: _threads.length,
-              itemBuilder: (context, index, animation) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: Offset(-1, 0),
-                    end: Offset.zero
-                  ).animate(animation),
-                  child: Thread(_threads[index], _userProfile),
-                );
+              itemCount: _threads.length,
+              itemBuilder: (context, index) {
+                return Thread(_threads[index], _userProfile);
               }
             ),
           ]
