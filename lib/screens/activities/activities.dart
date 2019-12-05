@@ -25,10 +25,11 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<List> _items = [
+    List _items = [
       ["/calculator", "Calculator"],
       ["/todo", "To Do"],
-      ["/http", "HTTP Requests"]
+      ["/http", "HTTP Tests"],
+      ["/firetest", "Firebase CRUD"]
     ];
 
     Widget _listCards(String _route, String _title, int _itemNum) {

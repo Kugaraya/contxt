@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 
 class TodoScreen extends StatefulWidget {
+  final String title = "To Do";
   @override
   _TodoScreenState createState() => _TodoScreenState();
 }
@@ -28,7 +29,7 @@ class _TodoScreenState extends State<TodoScreen> {
         },
       ),
       appBar: AppBar(
-        title: Text("To Do"),
+        title: Text(widget.title),
         centerTitle: true,
         backgroundColor: Colors.indigo[300],
       ),

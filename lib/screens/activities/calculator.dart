@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 
 class CalculatorScreen extends StatefulWidget {
+  final String title = "Calculator";
   @override
   State createState() => CalculatorScreenState();
 }
@@ -119,7 +120,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calculator"),
+        title: Text(widget.title),
         centerTitle: true,
         backgroundColor: Colors.orange[300],
       ),
