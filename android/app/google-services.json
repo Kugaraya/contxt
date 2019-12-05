@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "485442272505",
+    "firebase_url": "https://fir-contxt.firebaseio.com",
+    "project_id": "fir-contxt",
+    "storage_bucket": "fir-contxt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485442272505:android:83e18e773e3b90d5fb3628",
+        "android_client_info": {
+          "package_name": "dev.tkworks.contxt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485442272505-ungt7rrf4p09hc76epji7fp64mvqlmkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_yLNsKm2nGNjBOeFqtRnCwk5UxWOV-lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485442272505-ungt7rrf4p09hc76epji7fp64mvqlmkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
