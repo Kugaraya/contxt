@@ -9,14 +9,18 @@ import 'package:ConTXT/screens/home/thread.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
-  
+
   final String title = "Messages";
   final SmsQuery query = SmsQuery();
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,WidgetsBindingObserver,AutomaticKeepAliveClientMixin<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with
+        TickerProviderStateMixin,
+        WidgetsBindingObserver,
+        AutomaticKeepAliveClientMixin<HomeScreen> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final UserProfileProvider _userProfileProvider = UserProfileProvider();
   final SmsQuery _query = SmsQuery();
@@ -39,15 +43,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
     _query.getAllThreads.then(_onThreadsLoaded);
     _smsSender.onSmsDelivered.listen(_onSmsDelivered);
     opacityController = AnimationController(
-      duration: Duration(milliseconds: 300), vsync: this, value: 0.0
-    );
+        duration: Duration(milliseconds: 300), vsync: this, value: 0.0);
     super.initState();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if(state == AppLifecycleState.suspending) {
-      _receiver.onSmsReceived.listen(_onSmsReceived);    
+    if (state == AppLifecycleState.suspending) {
+      _receiver.onSmsReceived.listen(_onSmsReceived);
     }
   }
 
@@ -72,14 +75,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
           onPressed: () {
             setState(() {
               Fluttertoast.showToast(
-                msg: "Edit button pressed",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Color.fromARGB(80, 0, 0, 0),
-                textColor: Colors.white,
-                fontSize: 16.0
-              );
+                  msg: "Edit button pressed",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Color.fromARGB(80, 0, 0, 0),
+                  textColor: Colors.white,
+                  fontSize: 16.0);
             });
           },
         ),
@@ -92,9 +94,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
               pinned: true,
               automaticallyImplyLeading: false,
               flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text('Messages'),
-                background: Image.asset('assets/img/cover.png', fit: BoxFit.cover)),
+                  centerTitle: true,
+                  title: Text('Messages'),
+                  background:
+                      Image.asset('assets/img/cover.png', fit: BoxFit.cover)),
               actions: <Widget>[
                 IconButton(
                   tooltip: "Search",
@@ -109,32 +112,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
               ],
             ),
             SliverToBoxAdapter(
-              child: Container(
-                color: Colors.blue,
-                margin: EdgeInsets.only(bottom: 0.0),
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Text("No unread messages",
-                        style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                    )
-                  ],
-                )
-              )
-            ),
+                child: Container(
+                    color: Colors.blue,
+                    margin: EdgeInsets.only(bottom: 0.0),
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        MaterialButton(
+                          onPressed: () {},
+                          child: Text("No unread messages",
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.white)),
+                        )
+                      ],
+                    ))),
             SliverToBoxAdapter(
-              child: Column(
-                children: [_getThreadsWidgets()]
-              ),
+              child: Column(children: [_getThreadsWidgets()]),
             ),
           ],
         ),
       ),
     );
   }
+
   Widget _getThreadsWidgets() {
     if (_isLoading) {
       Widget _loader = Column(children: [
@@ -147,22 +148,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
     } else {
       return FadeTransition(
         opacity: opacityController,
-        child: Column(
-          children: [
-            ListView.builder(
+        child: Column(children: [
+          AnimatedList(
               key: listKey,
+              padding: EdgeInsets.all(0.0),
               physics: BouncingScrollPhysics(),
-              itemCount: _threads.length,
-              itemBuilder: (context, index) {
-                return Thread(_threads[index], _userProfile);
-              }
-            ),
-          ]
-        ),
+              shrinkWrap: true,
+              initialItemCount: _threads.length,
+              itemBuilder: (context, index, animation) {
+                return SlideTransition(
+                  position:
+                      Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
+                          .animate(animation),
+                  child: Thread(_threads[index], _userProfile),
+                );
+              }),
+        ]),
       );
     }
   }
-  
+
   void _onSmsReceived(SmsMessage sms) async {
     var thread = _threads.singleWhere((thread) {
       return thread.id == sms.threadId;
@@ -205,12 +210,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin,W
     _checkIfLoadCompleted();
   }
 
-
   void _onSmsDelivered(SmsMessage sms) async {
     final contacts = ContactQuery();
     Contact contact = await contacts.queryContact(sms.address);
-    final snackBar = SnackBar(
-        content: Text('Message to ${contact.fullName} delivered'));
+    final snackBar =
+        SnackBar(content: Text('Message to ${contact.fullName} delivered'));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 }
